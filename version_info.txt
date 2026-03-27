@@ -1,0 +1,36 @@
+# UTF-8
+#
+# Windows EXE version resource
+# Bruges af PyInstaller til at sætte fil-metadata i .exe
+# (vises i Windows Stifinder → Egenskaber → Detaljer)
+#
+VSVersionInfo(
+  ffi=FixedFileInfo(
+    filevers=(1, 0, 0, 0),
+    prodvers=(1, 0, 0, 0),
+    mask=0x3f,
+    flags=0x0,
+    OS=0x40004,         # VOS_NT_WINDOWS32
+    fileType=0x1,       # VFT_APP
+    subtype=0x0,
+    date=(0, 0)
+  ),
+  kids=[
+    StringFileInfo([
+      StringTable(
+        u'040009B0',    # Dansk (0x0406) + Unicode (0x04B0)
+        [
+          StringStruct(u'CompanyName',      u'MoldGen'),
+          StringStruct(u'FileDescription',  u'Mold Generator – STL til 3D-printbar støbeform'),
+          StringStruct(u'FileVersion',      u'1.0.0.0'),
+          StringStruct(u'InternalName',     u'MoldGenerator'),
+          StringStruct(u'LegalCopyright',   u'MIT License'),
+          StringStruct(u'OriginalFilename', u'MoldGenerator.exe'),
+          StringStruct(u'ProductName',      u'Mold Generator'),
+          StringStruct(u'ProductVersion',   u'1.0.0.0'),
+        ]
+      )
+    ]),
+    VarFileInfo([VarStruct(u'Translation', [0x0406, 0x04B0])])
+  ]
+)

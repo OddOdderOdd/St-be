@@ -1,0 +1,91 @@
+# =============================================================================
+#  AppImageBuilder recipe – Mold Generator Linux AppImage
+#
+#  Kræver:
+#    pip install appimage-builder
+#    pyinstaller installer/mold_generator_linux.spec   ← kør først
+#
+#  Brug:
+#    appimage-builder --recipe installer/AppImageBuilder.yml
+#
+#  Output:
+#    MoldGenerator-<version>-x86_64.AppImage
+#
+#  Hvad AppImage giver udover PyInstaller-bundle:
+#    - Selv-indeholdt: inkluderer C-runtime (libc, libstdc++)
+#      så den kører på Debian 10+, Ubuntu 18.04+, Fedora 32+
+#    - Ingen installation nødvendig – chmod +x og kør
+#    - Automatisk desktop-integration (ikon, .desktop-fil)
+# =============================================================================
+
+version: 1
+
+AppDir:
+  path: ./AppDir
+
+  app_info:
+    id:      dk.moldgenerator.MoldGenerator
+    name:    MoldGenerator
+    icon:    mold-generator
+    version: !ENV ${APP_VERSION:-1.0.0}
+    exec:    usr/bin/MoldGenerator
+    exec_args: $@
+
+  apt:
+    arch: amd64
+    sources:
+      - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu focal main restricted universe'
+        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32'
+
+    include:
+      # OpenGL og display
+      - libgl1-mesa-glx
+      - libglib2.0-0
+      - libxcb1
+      - libxcb-xinerama0
+      - libxcb-icccm4
+      - libxcb-image0
+      - libxcb-keysyms1
+      - libxcb-randr0
+      - libxcb-render-util0
+      - libxcb-shape0
+      - libxcb-util1
+      - libx11-xcb1
+      # Qt platform-plugin dependencies
+      - libdbus-1-3
+      - libfontconfig1
+      - libfreetype6
+      # Generelt
+      - libstdc++6
+      - libgcc-s1
+
+    exclude:
+      # Qt inkluderes fra PyInstaller-bundle – ikke fra apt
+      - libqt5*
+      - qt5-*
+
+  files:
+    # Kopiér PyInstaller dist direkte ind
+    include:
+      - dist/MoldGenerator/**
+    dirs:
+      - dist/MoldGenerator:/usr/bin
+      - installer/assets/mold-generator.png:/usr/share/icons/hicolor/256x256/apps/mold-generator.png
+
+  test:
+    fedora-30:
+      image: appimagecrafters/tests-env:fedora-30
+      command: ./AppRun --help
+    ubuntu-focal:
+      image: appimagecrafters/tests-env:ubuntu-focal
+      command: ./AppRun --help
+    ubuntu-bionic:
+      image: appimagecrafters/tests-env:ubuntu-bionic
+      command: ./AppRun --help
+
+AppImage:
+  arch: x86_64
+  # Signering kræver codesign-nøgle – deaktiveret her
+  sign-key: None
+  name:    "MoldGenerator-{version}-{arch}"
+  update-information: None

@@ -1,0 +1,37 @@
+# ─────────────────────────────────────────────────────────────
+#  Mold Generator – standardindstillinger
+#  Alle værdier kan overskrives fra GUI eller CLI-argumenter.
+# ─────────────────────────────────────────────────────────────
+
+geometry:
+  wall_thickness_mm: 3.0        # Mindste formvæg
+  draft_angle_deg: 1.5          # Udtræksvinkel på lodrette flader
+  undercut_threshold_pct: 2.0   # Max acceptabel underskæring for todelt form
+  max_parts: 6                  # Maks antal formhalvdele
+
+registration:
+  min_pins: 3                   # Minimum antal samletappe pr. flade
+  pin_tolerance_mm: 0.2         # +offset på modtagende hul (FDM-kompensation)
+  snap_lock: false              # Snap-lock-kant langs splitlinje
+
+sprue:
+  min_diameter_mm: 5.0          # Minimum indløbsdiameter
+  air_vent_diameter_mm: 2.0     # Lufthulsdiameter
+  funnel_ratio: 2.0             # Tragt øverst = ratio × indløbsdiameter
+
+toggles:
+  symmetric_split: true         # Kun akseparallelle splits
+  asymmetric_logic: false       # Tillad skrå parting lines
+  auto_part_count: true         # Auto-detektér antal dele
+  force_2part: false            # Tving todelt form
+  auto_sprue: true              # Automatisk indløbsplacering
+  registration_pins: true       # Generer samletappe
+
+gpu:
+  enabled: true                 # Forsøg GPU-acceleration
+  fallback_cpu: true            # Fald tilbage til CPU hvis GPU fejler
+  cuda_device: 0                # GPU-indeks (0 = første kort)
+
+output:
+  export_dir: "./output"
+  prefix: "mold"                # Filnavn-prefix: mold_part_A.stl osv.
