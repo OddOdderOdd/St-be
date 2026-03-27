@@ -34,8 +34,8 @@ from typing import Optional
 import numpy as np
 import trimesh
 
-from .undercut_analyzer import UndercutAnalyzer, UndercutReport, DirectionResult
-from .gpu_accelerator import GPUAccelerator
+from undercut_analyzer import UndercutAnalyzer, UndercutReport, DirectionResult
+from gpu_accelerator import GPUAccelerator
 
 logger = logging.getLogger(__name__)
 

@@ -38,8 +38,8 @@ import numpy as np
 import trimesh
 import trimesh.creation
 
-from .mold_builder import MoldPart
-from .parting_optimizer import SplitPlane
+from mold_builder import MoldPart
+from parting_optimizer import SplitPlane
 
 logger = logging.getLogger(__name__)
 

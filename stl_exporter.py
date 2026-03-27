@@ -20,7 +20,7 @@ from pathlib import Path
 
 import trimesh
 
-from ..core.mold_builder import MoldPart
+from mold_builder import MoldPart
 
 logger = logging.getLogger(__name__)
 

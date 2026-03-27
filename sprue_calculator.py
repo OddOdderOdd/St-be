@@ -24,7 +24,7 @@ import trimesh
 import trimesh.creation
 import trimesh.ray.ray_triangle
 
-from .mold_builder import MoldPart
+from mold_builder import MoldPart
 
 logger = logging.getLogger(__name__)
 

@@ -36,7 +36,7 @@ import trimesh
 import trimesh.creation
 import trimesh.repair
 
-from .sprue_calculator import SprueSpec
+from sprue_calculator import SprueSpec
 
 logger = logging.getLogger(__name__)
 

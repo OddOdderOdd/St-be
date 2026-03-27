@@ -38,7 +38,7 @@ import trimesh.creation
 import trimesh.intersections
 import trimesh.repair
 
-from .parting_optimizer import SplitPlane, PartingResult
+from parting_optimizer import SplitPlane, PartingResult
 
 logger = logging.getLogger(__name__)
 
