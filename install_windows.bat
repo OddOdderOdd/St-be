@@ -198,21 +198,32 @@ echo.
 echo [8/8] Kopierer programfiler...
 echo.
 
-xcopy "%APP_DIR%\*" "%APP_COPY%\" /E /I /Q /Y > nul 2>&1
-if %errorLevel% neq 0 (
-    echo FEJL: Kunne ikke kopiere programfiler.
-    pause
-    exit /b 1
+if /I "%APP_DIR%"=="%APP_COPY%" (
+    echo  ADVARSEL: Installeren koerer allerede fra den installerede app-mappe.
+    echo  Springer kopiering over for at undgaa rekursiv kopiering.
+) else (
+    xcopy "%APP_DIR%\*" "%APP_COPY%\" /E /I /Q /Y > nul 2>&1
+    if %errorLevel% neq 0 (
+        echo FEJL: Kunne ikke kopiere programfiler.
+        pause
+        exit /b 1
+    )
+    echo  OK: Programfiler kopieret
 )
-echo  OK: Programfiler kopieret
 
 :: ---- Launcher --------------------------------------------------
 echo  Opretter launcher...
 
 (
     echo @echo off
+    echo setlocal
     echo cd /d "%APP_COPY%"
-    echo start "" "%PYTHON_VENV%" main.py %%*
+    echo set "PYTHONW=%VENV_DIR%\Scripts\pythonw.exe"
+    echo if exist "%%PYTHONW%%" ^(
+    echo     start "" "%%PYTHONW%%" "%APP_COPY%\main.py" %%*
+    echo ^) else ^(
+    echo     start "" "%PYTHON_VENV%" "%APP_COPY%\main.py" %%*
+    echo ^)
 ) > "%LAUNCHER%"
 
 echo  OK: Launcher oprettet
