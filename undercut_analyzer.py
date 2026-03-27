@@ -30,12 +30,13 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass, field
+from typing import Optional
 
 import numpy as np
 import trimesh.creation
 import trimesh
 
-from .gpu_accelerator import GPUAccelerator
+from gpu_accelerator import GPUAccelerator
 
 logger = logging.getLogger(__name__)
 
@@ -245,6 +246,3 @@ class UndercutAnalyzer:
             return 4
         return 6   # Worst case – bruger bør inspicere manuelt
 
-
-# Gør Optional tilgængelig uden import i type hints oven i filen
-from typing import Optional   # noqa: E402
